@@ -43,7 +43,7 @@ var getDataMass = function () {
       'header': {
         'name': MOCK.header.name[getRandomInRange(0, MOCK.header.name.length - 1)]
       }
-    }
+    };
   };
   return arr;
 };
