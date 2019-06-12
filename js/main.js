@@ -12,7 +12,7 @@ map.classList.remove('map--faded');
 
 var MOCK = {
   'author': {
-    "avatar": 'img/avatars/user0.png'
+    'avatar': 'img/avatars/user0.png'
   },
   'offer': {
     'type': ['palace', 'flat', 'house', 'bungalo']
@@ -34,7 +34,7 @@ var getDataMass = function () {
         'avatar': 'img/avatars/user0' + parseInt(i + 1) + '.png'
       },
       'offer': {
-        "type": MOCK.offer.type[getRandomInRange(0, MOCK.offer.type.length - 1)]
+        'type': MOCK.offer.type[getRandomInRange(0, MOCK.offer.type.length - 1)]
       },
       'location': {
         'x': getRandomInRange(0, 1150),
@@ -44,7 +44,7 @@ var getDataMass = function () {
         'name': MOCK.header.name[getRandomInRange(0, MOCK.header.name.length - 1)]
       }
     }
-  }
+  };
   return arr;
 };
 
