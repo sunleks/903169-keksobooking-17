@@ -1,5 +1,8 @@
 'use strict'
 
+var pin = document.querySelector('#pin').content.querySelector('.map__pin');
+var mapPins = document.querySelector('.map__pins')
+
 function getRandomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -7,49 +10,53 @@ function getRandomInRange(min, max) {
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
-var pin = document.querySelector('#pin').content.querySelector('.map__pin');
-var imgPin =  pin.querySelector('img');
-
-var mapPins = document.querySelector('.map__pins')
-
-
-  var arrayObj = {
-    "author": {
-      "avatar": 'img/avatars/user0.png'
-      },
-    "offer": {
-      "type": ['palace', 'flat', 'house', 'bungalo']
-      },
-    "location": {
-      "x": '',/*getRandomInRange(0, 600)*/
-      "y": ''/*getRandomInRange(130, 160)*/
-      }
-  };
-
-for (var i = 1; i <= 8; i++) {
-  var pinsElement = pin.cloneNode(true);
-
-  /*Присваиваиваем раномное число координатам х и y*/
-  arrayObj.location.x = getRandomInRange(0, 600);
-  arrayObj.location.y = getRandomInRange(130, 160);
-  /*Добавляем рандомному числу px*/
-  pinsElement.style.left = arrayObj.location.x + 'px';
-  pinsElement.style.top = arrayObj.location.y + 'px';
-
-  var pinsElementImgPin = imgPin.cloneNode(true);
-
-  /*Перебираем аватары пользователей*/
-  arrayObj.author.avatar = 'img/avatars/user0' + i + '.png';
-  pinsElementImgPin.src = arrayObj.author.avatar;
-
-  console.log(pinsElementImgPin.src);
-  /*Создаём переменную, которая будет брать раномные числа из диапазона от 0 до 3 и присваиваем alt
-  рандомное значение*/
-  var rand = getRandomInRange(0, arrayObj.offer.type.length - 1);
-  pinsElementImgPin.alt = arrayObj.offer.type[rand];
-
-
-  mapPins.appendChild(pinsElement);
-  mapPins.appendChild(pinsElementImgPin);
+var MOCK = {
+  "author": {
+    "avatar": 'img/avatars/user0.png'
+  },
+  "offer": {
+    "type": ['palace', 'flat', 'house', 'bungalo']
+  },
+  "location": {
+    "x": '',
+    "y": ''
+  },
+  "header": {
+    "name": ['лучшеее жильё', 'замечательное жильё', 'пойдёт', 'горящее предложение']
+  }
 };
 
+var getDataMass = function () {
+  var arr = [];
+  for (var i = 0; i < 8; i++) {
+    arr [i] = {
+      "author": {
+        "avatar": 'img/avatars/user0' + parseInt(i + 1) + '.png'
+      },
+      "offer": {
+        "type": MOCK.offer.type[getRandomInRange(0, MOCK.offer.type.length - 1)]
+      },
+      "location": {
+        "x": getRandomInRange(0, 1150),
+        "y": getRandomInRange(130, 630)
+      },
+      "header": {
+        "name": MOCK.header.name[getRandomInRange(0, MOCK.header.name.length - 1)]
+      }
+    }
+  }
+  return arr;
+};
+
+
+var data = getDataMass();
+console.log(data);
+
+for (var i = 0; i < data.length; i++) {
+  var element = pin.cloneNode(true);
+  element.style.left = data[i].location.x + 'px';
+  element.style.top = data[i].location.y + 'px';
+  element.querySelector('img').src = data[i].author.avatar;
+  element.querySelector('img').alt = data[i].header.name;
+  mapPins.appendChild(element);
+}
