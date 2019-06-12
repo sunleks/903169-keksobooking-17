@@ -22,7 +22,7 @@ var MOCK = {
     'y': ''
   },
   'header': {
-    'name': ['лучшеее жильё', 'замечательное жильё', 'пойдёт', 'горящее предложение']
+    'name': ['лучшеее', 'замечательное', 'пойдёт', 'горящее предложение']
   }
 };
 
@@ -44,7 +44,7 @@ var getDataMass = function () {
         'name': MOCK.header.name[getRandomInRange(0, MOCK.header.name.length - 1)]
       }
     };
-  };
+  }
   return arr;
 };
 
