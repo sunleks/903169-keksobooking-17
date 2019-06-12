@@ -31,7 +31,7 @@ var getDataMass = function () {
   for (var i = 0; i < 8; i++) {
     arr [i] = {
       'author': {
-        'avatar': 'img/avatars/user0' + parseInt(i + 1) + '.png'
+        'avatar': 'img/avatars/user0' + (i + 1) + '.png'
       },
       'offer': {
         'type': MOCK.offer.type[getRandomInRange(0, MOCK.offer.type.length - 1)]
