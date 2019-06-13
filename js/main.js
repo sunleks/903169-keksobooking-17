@@ -50,11 +50,17 @@ var getDataMass = function () {
 
 var data = getDataMass();
 
-for (var i = 0; i < data.length; i++) {
+var createPin = function (data) {
   var element = pin.cloneNode(true);
-  element.style.left = data[i].location.x + 'px';
-  element.style.top = data[i].location.y + 'px';
-  element.querySelector('img').src = data[i].author.avatar;
-  element.querySelector('img').alt = data[i].header.name;
-  mapPins.appendChild(element);
+  element.style.left = data.location.x + 'px';
+  element.style.top = data.location.y + 'px';
+  element.querySelector('img').src = data.author.avatar;
+  element.querySelector('img').alt = data.header.name;
+  return element;
+};
+
+for (var i = 0; i < data.length; i++) {
+  mapPins.appendChild(createPin(data[i]));
 }
+
+
