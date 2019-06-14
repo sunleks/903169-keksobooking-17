@@ -73,8 +73,8 @@ pinMain.addEventListener('click', function () {
   }
 });
 
-address.value = parseInt('pinMain.style.left', 10) + ", " + parseInt('pinMain.style.top', 10);
+address.value = parseInt(pinMain.style.left, 10) + ", " + parseInt(pinMain.style.top, 10);
 
 pinMain.addEventListener('mouseup', function () {
-  address.value = parseInt("pinMain.style.left", 10) + ", " + parseInt('pinMain.style.top', 10);
+  address.value = parseInt(pinMain.style.left, 10) + ", " + parseInt(pinMain.style.top, 10);
 });
