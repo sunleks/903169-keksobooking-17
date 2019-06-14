@@ -8,7 +8,6 @@ function getRandomInRange(min, max) {
 }
 
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
 
 var MOCK = {
   'author': {
@@ -59,6 +58,21 @@ var createPin = function (dataNew) {
   return element;
 };
 
-for (var i = 0; i < data.length; i++) {
-  mapPins.appendChild(createPin(data[i]));
-}
+var pinMain = document.querySelector('.map__pin--main');
+var form = document.querySelector('.ad-form');
+var address = document.querySelector('#address');
+
+pinMain.addEventListener('click', function() {
+  map.classList.remove('map--faded');
+  form.classList.remove('ad-form--disabled');
+  
+  for (var i = 0; i < data.length; i++) {
+    mapPins.appendChild(createPin(data[i]));
+  }
+});
+
+address.value = parseInt(pinMain.style.left) + ', ' + parseInt(pinMain.style.top);
+
+pinMain.addEventListener('mouseup', function() {
+  address.value = parseInt(pinMain.style.left) + ', ' + parseInt(pinMain.style.top);
+});
