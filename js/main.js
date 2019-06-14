@@ -61,10 +61,13 @@ var createPin = function (dataNew) {
 var pinMain = document.querySelector('.map__pin--main');
 var form = document.querySelector('.ad-form');
 var address = document.querySelector('#address');
-
-pinMain.addEventListener('click', function () {
+var deleteClass = function () {
   map.classList.remove('map--faded');
   form.classList.remove('ad-form--disabled');
+};
+
+pinMain.addEventListener('click', function () {
+  deleteClass();
   for (var i = 0; i < data.length; i++) {
     mapPins.appendChild(createPin(data[i]));
   }
