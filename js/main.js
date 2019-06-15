@@ -61,15 +61,33 @@ var createPin = function (dataNew) {
 var pinMain = document.querySelector('.map__pin--main');
 var form = document.querySelector('.ad-form');
 var address = document.querySelector('#address');
-var deleteClass = function () {
+
+var disabledElement = function () {
+  var disabledFieldset = form.querySelectorAll('fieldset');
+  for (var i = 0; i <= disabledFieldset.length - 1; i++) {
+    disabledFieldset[i].setAttribute('disabled', true);
+  }
+};
+disabledElement();
+
+var enabledElement = function () {
+  var enabledFieldset = form.querySelectorAll('fieldset');
+  for (var i = 0; i <= enabledFieldset.length - 1; i++) {
+    enabledFieldset[i].removeAttribute('disabled', true);
+  }
   map.classList.remove('map--faded');
   form.classList.remove('ad-form--disabled');
 };
 
+var onlyOneClick = true;
+
 pinMain.addEventListener('click', function () {
-  deleteClass();
-  for (var i = 0; i < data.length; i++) {
-    mapPins.appendChild(createPin(data[i]));
+  if (onlyOneClick) {
+    enabledElement();
+    for (var i = 0; i < data.length; i++) {
+      mapPins.appendChild(createPin(data[i]));
+    }
+    onlyOneClick = false;
   }
 });
 
