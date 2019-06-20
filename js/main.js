@@ -101,7 +101,7 @@ pinMain.addEventListener('mouseup', function () {
 var validType = document.querySelector('#type');
 var validPrice = document.querySelector('#price');
 var giveDataAttribute = function (value, min, placeholder) {
-  if (validType.value == value) {
+  if (validType.value === value) {
     validPrice.min = min;
     validPrice.placeholder = placeholder;
   }
@@ -109,7 +109,7 @@ var giveDataAttribute = function (value, min, placeholder) {
 
 giveDataAttribute('flat', 1000, 1000);
 
-validType.addEventListener ('change', function() {
+validType.addEventListener('change', function () {
   giveDataAttribute('bungalo', 0, 0);
   giveDataAttribute('flat', 1000, 1000);
   giveDataAttribute('house', 5000, 5000);
