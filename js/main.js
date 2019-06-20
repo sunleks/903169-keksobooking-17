@@ -115,3 +115,28 @@ validType.addEventListener('change', function () {
   giveDataAttribute('house', 5000, 5000);
   giveDataAttribute('palace', 10000, 10000);
 });
+
+var timein = document.querySelector('#timein');
+var timeout = document.querySelector('#timeout');
+var giveDataTimein = function (value) {
+  if (timein.value === value) {
+    timeout.value = timein.value;
+  }
+};
+var giveDataTimeout = function (value) {
+  if (timeout.value === value) {
+    timein.value = timeout.value;
+  }
+};
+
+timein.addEventListener('change', function () {
+  giveDataTimein('12:00');
+  giveDataTimein('13:00');
+  giveDataTimein('14:00');
+});
+
+timeout.addEventListener('change', function () {
+  giveDataTimeout('12:00');
+  giveDataTimeout('13:00');
+  giveDataTimeout('14:00');
+});
