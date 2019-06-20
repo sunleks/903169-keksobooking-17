@@ -100,15 +100,15 @@ pinMain.addEventListener('mouseup', function () {
 
 var validType = document.querySelector('#type');
 var validPrice = document.querySelector('#price');
-var validOption = validType.querySelectorAll('option');
-var giveDataAttribute = function (value, min, placeholder) {
+var validOption = validType.querySelectorAll('option'); /* Поиск всех option в теге select с id = #price*/
+var giveDataAttribute = function (value, min, placeholder) {  /*Функция, которой передаются параметры и она их записывает в value и placeholder */
   if (validType.value === value) {
     validPrice.min = min;
     validPrice.placeholder = placeholder;
   }
 };
 
-var getTypeOption = function () {
+var getTypeOption = function () { /* Функция, которая получает данные из select с id = #type, option  и записывает в массив*/
   var arr = [];
   for (var i = 0; i < validOption.length; i++) {
     arr[i] = validOption[i].value;
@@ -116,12 +116,12 @@ var getTypeOption = function () {
   return arr;
 };
 
-var priceNightValue = [0, 1000, 5000, 10000];
-var priceNightPlaceholder = [0, 1000, 5000, 10000];
+var priceNightValue = [0, 1000, 5000, 10000]; /* Создал массив для значений value*/
+var priceNightPlaceholder = [0, 1000, 5000, 10000];/* Создал массив для значений placeholder*/
 
-giveDataAttribute('flat', 1000, 1000);
+giveDataAttribute('flat', 1000, 1000);/* По умолчанию стоит это значение  */
 
-validType.addEventListener('change', function () {
+validType.addEventListener('change', function () { /*Событие, которое следит за изменениями в поле select с id = #type и передаёт значения */
   for (var i = 0; i < validOption.length; i++) {
     giveDataAttribute(getTypeOption()[i], priceNightValue[i], priceNightPlaceholder[i]);
   }
@@ -129,7 +129,7 @@ validType.addEventListener('change', function () {
 
 var timein = document.querySelector('#timein');
 var timeout = document.querySelector('#timeout');
-var getTimeOption = function (data) {
+var getTimeOption = function (data) { /* Функция, которая получает параметр Select. Записывает значения Option в массив  возращает массив */
   var arr = [];
   for (var i = 0; i < data.querySelectorAll('option').length; i++) {
     arr[i] = data.querySelectorAll('option')[i].value;
@@ -137,12 +137,12 @@ var getTimeOption = function (data) {
   return arr;
 };
 
-var giveDataTimein = function (value) {
+var giveDataTimein = function (value) {/* Функиция, которая сравнивает option.value со значением value и сохраняет значение value  в другой input*/
   if (timein.value === value) {
     timeout.value = timein.value;
   }
 };
-var giveDataTimeout = function (value) {
+var giveDataTimeout = function (value) {/* Функиция, которая сравнивает option.value со значением value и сохраняет значение value  в другой input*/
   if (timeout.value === value) {
     timein.value = timeout.value;
   }
