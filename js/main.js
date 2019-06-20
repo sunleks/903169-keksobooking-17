@@ -97,3 +97,21 @@ address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style
 pinMain.addEventListener('mouseup', function () {
   address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
 });
+
+var validType = document.querySelector('#type');
+var validPrice = document.querySelector('#price');
+var giveDataAttribute = function (value, min, placeholder) {
+  if (validType.value == value) {
+    validPrice.min = min;
+    validPrice.placeholder = placeholder;
+  }
+};
+
+giveDataAttribute('flat', 1000, 1000);
+
+validType.addEventListener ('change', function() {
+  giveDataAttribute('bungalo', 0, 0);
+  giveDataAttribute('flat', 1000, 1000);
+  giveDataAttribute('house', 5000, 5000);
+  giveDataAttribute('palace', 10000, 10000);
+});
