@@ -100,6 +100,7 @@ pinMain.addEventListener('mouseup', function () {
 
 var validType = document.querySelector('#type');
 var validPrice = document.querySelector('#price');
+var validOption = validType.querySelectorAll('option');
 var giveDataAttribute = function (value, min, placeholder) {
   if (validType.value === value) {
     validPrice.min = min;
@@ -107,17 +108,35 @@ var giveDataAttribute = function (value, min, placeholder) {
   }
 };
 
+var getTypeOption = function () {
+  var arr = [];
+  for (var i = 0; i < validOption.length; i++) {
+    arr[i] = validOption[i].value;
+  }
+  return arr;
+};
+
+var priceNightValue = [0, 1000, 5000, 10000];
+var priceNightPlaceholder = [0, 1000, 5000, 10000];
+
 giveDataAttribute('flat', 1000, 1000);
 
 validType.addEventListener('change', function () {
-  giveDataAttribute('bungalo', 0, 0);
-  giveDataAttribute('flat', 1000, 1000);
-  giveDataAttribute('house', 5000, 5000);
-  giveDataAttribute('palace', 10000, 10000);
+  for (var i = 0; i < validOption.length; i++) {
+    giveDataAttribute(getTypeOption()[i], priceNightValue[i], priceNightPlaceholder[i]);
+  }
 });
 
 var timein = document.querySelector('#timein');
 var timeout = document.querySelector('#timeout');
+var getTimeOption = function (data) {
+  var arr = [];
+  for (var i = 0; i < data.querySelectorAll('option').length; i++) {
+    arr[i] = data.querySelectorAll('option')[i].value;
+  }
+  return arr;
+};
+
 var giveDataTimein = function (value) {
   if (timein.value === value) {
     timeout.value = timein.value;
@@ -130,13 +149,13 @@ var giveDataTimeout = function (value) {
 };
 
 timein.addEventListener('change', function () {
-  giveDataTimein('12:00');
-  giveDataTimein('13:00');
-  giveDataTimein('14:00');
+  for (var i = 0; i < getTimeOption(timein).length; i++) {
+    giveDataTimein(getTimeOption(timein)[i]);
+  }
 });
 
 timeout.addEventListener('change', function () {
-  giveDataTimeout('12:00');
-  giveDataTimeout('13:00');
-  giveDataTimeout('14:00');
+  for (var i = 0; i < getTimeOption(timeout).length; i++) {
+    giveDataTimeout(getTimeOption(timeout)[i]);
+  }
 });
