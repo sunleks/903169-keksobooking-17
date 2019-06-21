@@ -101,10 +101,10 @@ pinMain.addEventListener('mouseup', function () {
   address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
 });
 
-var validType = document.querySelector('#type');
-var validPrice = document.querySelector('#price');
+var selectType = document.querySelector('#type');
+var selectPrice = document.querySelector('#price');
 var getHousePrice = function () {
-  switch (validType.value) {
+  switch (selectType.value) {
     case 'bungalo':
       return 0;
     case 'flat':
@@ -118,10 +118,10 @@ var getHousePrice = function () {
   }
 };
 
-validType.addEventListener('change', function () {
+selectType.addEventListener('change', function () {
   var minPrice = getHousePrice();
-  validPrice.setAttribute('min', minPrice);
-  validPrice.setAttribute('placeholder', minPrice);
+  selectPrice.setAttribute('min', minPrice);
+  selectPrice.setAttribute('placeholder', minPrice);
 });
 
 var timein = document.querySelector('#timein');
