@@ -77,9 +77,12 @@ var enabledElement = function (collection) {
 };
 
 var fragment = document.createDocumentFragment();
-for (var i = 0; i < data.length; i++) {
-  fragment.appendChild(createPin(data[i]));
-}
+var createPins = function () {
+  for (var i = 0; i < data.length; i++) {
+    fragment.appendChild(createPin(data[i]));
+  }
+};
+createPins();
 
 var renderPins = function (node, elements) {
   node.appendChild(elements);
@@ -96,4 +99,38 @@ address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style
 
 pinMain.addEventListener('mouseup', function () {
   address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
+});
+
+var selectType = document.querySelector('#type');
+var selectPrice = document.querySelector('#price');
+var getHousePrice = function () {
+  switch (selectType.value) {
+    case 'bungalo':
+      return 0;
+    case 'flat':
+      return 1000;
+    case 'house':
+      return 5000;
+    case 'palace':
+      return 10000;
+    default:
+      return 1000;
+  }
+};
+
+selectType.addEventListener('change', function () {
+  var minPrice = getHousePrice();
+  selectPrice.setAttribute('min', minPrice);
+  selectPrice.setAttribute('placeholder', minPrice);
+});
+
+var timein = document.querySelector('#timein');
+var timeout = document.querySelector('#timeout');
+
+timein.addEventListener('change', function () {
+  timeout.value = timein.value;
+});
+
+timeout.addEventListener('change', function () {
+  timein.value = timeout.value;
 });
