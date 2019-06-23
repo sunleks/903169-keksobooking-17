@@ -88,12 +88,6 @@ var renderPins = function (node, elements) {
   node.appendChild(elements);
 };
 
-address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
-
-pinMain.addEventListener('mouseup', function () {
-  address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
-});
-
 var selectType = document.querySelector('#type');
 var selectPrice = document.querySelector('#price');
 var getHousePrice = function () {
@@ -132,6 +126,7 @@ timeout.addEventListener('change', function () {
   timein.value = timeout.value;
 });
 ///////////////////////////////////
+address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
 
 pinMain.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
@@ -140,6 +135,9 @@ pinMain.addEventListener('mousedown', function (evt) {
   form.classList.remove('ad-form--disabled');
   enabledElement(formFieldsets);
   renderPins(mapPins, fragment);
+
+  var CLIENT_WIDTH = pinMain.clientWidth / 2;
+  var CLIENT_HEIGHT = pinMain.clientHeight;
 
   var startCoords = {
     x: evt.clientX,
@@ -176,6 +174,7 @@ pinMain.addEventListener('mousedown', function (evt) {
 
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
+    address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
 
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
