@@ -125,7 +125,7 @@ timein.addEventListener('change', function () {
 timeout.addEventListener('change', function () {
   timein.value = timeout.value;
 });
-///////////////////////////////////
+
 address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
 
 pinMain.addEventListener('mousedown', function (evt) {
@@ -146,13 +146,13 @@ pinMain.addEventListener('mousedown', function (evt) {
     x: evt.clientX,
     y: evt.clientY
   };
-  
+
   var onMouseMove = function (moveEvt) {
     var shift = {
       x: startCoords.x - moveEvt.clientX,
       y: startCoords.y - moveEvt.clientY
     };
-    
+
     startCoords = {
       x: moveEvt.clientX,
       y: moveEvt.clientY
@@ -165,21 +165,21 @@ pinMain.addEventListener('mousedown', function (evt) {
       pinMain.style.left = 0 + 'px';
     } else if ((pinMain.offsetLeft - shift.x) > mapPins.clientWidth - PIN_WIDTH) {
       pinMain.style.left = (mapPins.clientWidth - PIN_WIDTH) + 'px';
-    };
+    }
 
     if ((pinMain.offsetTop - shift.y) < 130) {
       pinMain.style.top = 130 + 'px';
     } else if ((pinMain.offsetTop - shift.y) > 630) {
       pinMain.style.top = 630 + 'px';
-    };
+    }
   };
-  
-  var onMouseUp = function (upEvt) {
-    address.value = coordsAddres.x  + ', ' + coordsAddres.y;
+
+  var onMouseUp = function () {
+    address.value = coordsAddres.x + ', ' + coordsAddres.y;
 
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
   };
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
-}); 
+});
