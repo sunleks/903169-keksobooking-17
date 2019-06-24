@@ -1,14 +1,14 @@
 'use strict';
 (function () {
-window.fragment = document.createDocumentFragment();
-var createPins = function () {
-  for (var i = 0; i < window.data.length; i++) {
-    window.fragment.appendChild(createPin(window.data[i]));
-  }
-};
-createPins();
+  window.fragment = document.createDocumentFragment();
+  var createPins = function () {
+    for (var i = 0; i < window.data.length; i++) {
+      window.fragment.appendChild(window.createPin(window.data[i]));
+    }
+  };
+  createPins();
 
-window.renderPins = function (node, elements) {
-  node.appendChild(elements);
-};
+  window.renderPins = function (node, elements) {
+    node.appendChild(elements);
+  };
 })();

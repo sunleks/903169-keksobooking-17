@@ -5,7 +5,7 @@
   function getRandomInRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  
+
   var MOCK = {
     'author': {
       'avatar': 'img/avatars/user0.png'
@@ -21,7 +21,7 @@
       'name': ['лучшеее', 'замечательное', 'пойдёт', 'горящее предложение']
     }
   };
-  
+
   var getDataMass = function () {
     var arr = [];
     for (var i = 0; i < 8; i++) {
@@ -43,9 +43,9 @@
     }
     return arr;
   };
-  
+
   window.data = getDataMass();
-  
+
   window.createPin = function (indicators) {
     var element = pin.cloneNode(true);
     element.style.left = indicators.location.x + 'px';
