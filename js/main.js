@@ -136,8 +136,13 @@ pinMain.addEventListener('mousedown', function (evt) {
   enabledElement(formFieldsets);
   renderPins(mapPins, fragment);
 
-  var CLIENT_WIDTH = pinMain.clientWidth / 2;
-  var CLIENT_HEIGHT = pinMain.clientHeight;
+  var PIN_WIDTH = 65;
+  var PIN_HEIGHT = 65;
+
+  var coordsAddres = {
+    x: parseInt(pinMain.style.left, 10) + PIN_WIDTH / 2 - 0.5,
+    y: parseInt(pinMain.style.top, 10) + PIN_HEIGHT
+  };
 
   var startCoords = {
     x: evt.clientX,
@@ -160,10 +165,10 @@ pinMain.addEventListener('mousedown', function (evt) {
     pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
     pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
 
-    if ((pinMain.offsetLeft - shift.x) < -30) {
-      pinMain.style.left = -30 + 'px';
-    } else if ((pinMain.offsetLeft - shift.x) > 1150) {
-      pinMain.style.left = 1150 + 'px';
+    if ((pinMain.offsetLeft - shift.x) < 0) {
+      pinMain.style.left = 0 + 'px';
+    } else if ((pinMain.offsetLeft - shift.x) > mapPins.clientWidth - PIN_WIDTH) {
+      pinMain.style.left = (mapPins.clientWidth - PIN_WIDTH) + 'px';
     };
     if ((pinMain.offsetTop - shift.y) < 130) {
       pinMain.style.top = 130 + 'px';
@@ -171,10 +176,10 @@ pinMain.addEventListener('mousedown', function (evt) {
       pinMain.style.top = 630 + 'px';
     };
   };
-
+  console.log({mapPins});
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
-    address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
+    address.value = coordsAddres.x  + ', ' + coordsAddres.y;
 
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
