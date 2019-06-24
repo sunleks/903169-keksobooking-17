@@ -129,8 +129,6 @@ timeout.addEventListener('change', function () {
 address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
 
 pinMain.addEventListener('mousedown', function (evt) {
-  evt.preventDefault();
-  
   map.classList.remove('map--faded');
   form.classList.remove('ad-form--disabled');
   enabledElement(formFieldsets);
@@ -150,8 +148,6 @@ pinMain.addEventListener('mousedown', function (evt) {
   };
   
   var onMouseMove = function (moveEvt) {
-    moveEvt.preventDefault();
-
     var shift = {
       x: startCoords.x - moveEvt.clientX,
       y: startCoords.y - moveEvt.clientY
@@ -170,15 +166,15 @@ pinMain.addEventListener('mousedown', function (evt) {
     } else if ((pinMain.offsetLeft - shift.x) > mapPins.clientWidth - PIN_WIDTH) {
       pinMain.style.left = (mapPins.clientWidth - PIN_WIDTH) + 'px';
     };
+
     if ((pinMain.offsetTop - shift.y) < 130) {
       pinMain.style.top = 130 + 'px';
     } else if ((pinMain.offsetTop - shift.y) > 630) {
       pinMain.style.top = 630 + 'px';
     };
   };
-  console.log({mapPins});
+  
   var onMouseUp = function (upEvt) {
-    upEvt.preventDefault();
     address.value = coordsAddres.x  + ', ' + coordsAddres.y;
 
     document.removeEventListener('mousemove', onMouseMove);
