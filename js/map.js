@@ -1,8 +1,7 @@
 'use strict';
 (function () {
-  var pin = document.querySelector('#pin').content.querySelector('.map__pin');
   var createPin = function (indicators) {
-    var element = pin.cloneNode(true);
+    var element = window.pin.cloneNode(true);
     element.style.left = indicators.location.x + 'px';
     element.style.top = indicators.location.y + 'px';
     element.querySelector('img').src = indicators.author.avatar;
