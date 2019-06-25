@@ -39,11 +39,6 @@
     var PIN_WIDTH = 65;
     var PIN_HEIGHT = 65;
 
-    var coordsAddres = {
-      x: parseInt(pinMain.style.left, 10) + PIN_WIDTH / 2 - 0.5,
-      y: parseInt(pinMain.style.top, 10) + PIN_HEIGHT
-    };
-
     var startCoords = {
       x: evt.clientX,
       y: evt.clientY
@@ -74,11 +69,16 @@
       } else if ((pinMain.offsetTop - shift.y) > 630) {
         pinMain.style.top = 630 + 'px';
       }
+
+      var coordsAddres = {
+        x: parseInt(pinMain.style.left, 10) + PIN_WIDTH / 2 - 0.5,
+        y: parseInt(pinMain.style.top, 10) + PIN_HEIGHT
+      };
+
+      address.value = coordsAddres.x + ', ' + coordsAddres.y;
     };
 
     var onMouseUp = function () {
-      address.value = coordsAddres.x + ', ' + coordsAddres.y;
-
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
