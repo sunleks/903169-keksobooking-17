@@ -1,7 +1,5 @@
 'use strict';
 (function () {
-  var pin = document.querySelector('#pin').content.querySelector('.map__pin');
-
   function getRandomInRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -45,13 +43,4 @@
   };
 
   window.data = getDataMass();
-
-  window.createPin = function (indicators) {
-    var element = pin.cloneNode(true);
-    element.style.left = indicators.location.x + 'px';
-    element.style.top = indicators.location.y + 'px';
-    element.querySelector('img').src = indicators.author.avatar;
-    element.querySelector('img').alt = indicators.header.name;
-    return element;
-  };
 })();
