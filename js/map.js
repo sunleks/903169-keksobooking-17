@@ -7,7 +7,7 @@
 
   var map = document.querySelector('.map');
   window.mapPins = document.querySelector('.map__pins');
-  
+
   pinMain.addEventListener('mousedown', function (evt) {
     map.classList.remove('map--faded');
     window.forms.form.classList.remove('ad-form--disabled');

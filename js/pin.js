@@ -10,15 +10,15 @@
     element.querySelector('img').alt = indicators.offer.title;
     return element;
   };
-  
+
   var flagCreatePins = true;
   window.createPins = function (dataAjax) {
     if (flagCreatePins) {
-    for (var i = 0; i < dataAjax.length; i++) {
-      window.mapPins.appendChild(createPin(dataAjax[i]));
+      for (var i = 0; i < dataAjax.length; i++) {
+        window.mapPins.appendChild(createPin(dataAjax[i]));
+      }
+      flagCreatePins = false;
     }
-    flagCreatePins = false;
-  }
   };
 
   window.onErrorHandler = function () {
@@ -29,12 +29,12 @@
 
     var errorButton = document.querySelector('.error__button');
 
-    errorButton.addEventListener ('click', function () {
+    errorButton.addEventListener('click', function () {
       mainBlock.removeChild(document.querySelector('.error'));
       document.removeEventListener('keydown', onErrorEsc);
     });
-    
-    var onErrorEsc =  function (evt) {
+
+    var onErrorEsc = function (evt) {
       if (evt.keyCode === 27) {
         mainBlock.removeChild(document.querySelector('.error'));
       }
