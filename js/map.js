@@ -8,11 +8,20 @@
   var map = document.querySelector('.map');
   window.mapPins = document.querySelector('.map__pins');
 
-  pinMain.addEventListener('mousedown', function (evt) {
+  var renderPins = function () {
+    window.load(window.createPins, window.onErrorHandler);
+  };
+  var activePage = function () {
     map.classList.remove('map--faded');
     window.forms.form.classList.remove('ad-form--disabled');
     window.enabledElement(window.forms.formFieldsets);
-    window.load(window.createPins, window.onErrorHandler);
+    renderPins();
+    pinMain.removeEventListener('mousedown', activePage);
+  };
+
+  pinMain.addEventListener('mousedown', activePage);
+
+  pinMain.addEventListener('mousedown', function (evt) {
 
     var PIN_WIDTH = 65;
     var PIN_HEIGHT = 65;

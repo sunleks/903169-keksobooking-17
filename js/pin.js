@@ -1,8 +1,7 @@
 'use strict';
 (function () {
-  var pin = document.querySelector('#pin').content.querySelector('.map__pin');
-
   var createPin = function (indicators) {
+    var pin = document.querySelector('#pin').content.querySelector('.map__pin');
     var element = pin.cloneNode(true);
     element.style.left = indicators.location.x + 'px';
     element.style.top = indicators.location.y + 'px';
@@ -11,13 +10,9 @@
     return element;
   };
 
-  var flagCreatePins = true;
   window.createPins = function (dataAjax) {
-    if (flagCreatePins) {
-      for (var i = 0; i < dataAjax.length; i++) {
-        window.mapPins.appendChild(createPin(dataAjax[i]));
-      }
-      flagCreatePins = false;
+    for (var i = 0; i < dataAjax.length; i++) {
+      window.mapPins.appendChild(createPin(dataAjax[i]));
     }
   };
 
