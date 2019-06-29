@@ -5,14 +5,23 @@
 
   address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
 
-  var mapPins = document.querySelector('.map__pins');
   var map = document.querySelector('.map');
+  window.mapPins = document.querySelector('.map__pins');
 
-  pinMain.addEventListener('mousedown', function (evt) {
+  var renderPins = function () {
+    window.load(window.createPin, window.onErrorHandler);
+  };
+  var activePage = function () {
     map.classList.remove('map--faded');
     window.forms.form.classList.remove('ad-form--disabled');
     window.enabledElement(window.forms.formFieldsets);
-    window.renderPins(mapPins, window.fragment);
+    renderPins();
+    pinMain.removeEventListener('mousedown', activePage);
+  };
+
+  pinMain.addEventListener('mousedown', activePage);
+
+  pinMain.addEventListener('mousedown', function (evt) {
 
     var PIN_WIDTH = 65;
     var PIN_HEIGHT = 65;
@@ -38,8 +47,8 @@
 
       if ((pinMain.offsetLeft - shift.x) < 0) {
         pinMain.style.left = 0 + 'px';
-      } else if ((pinMain.offsetLeft - shift.x) > mapPins.clientWidth - PIN_WIDTH) {
-        pinMain.style.left = (mapPins.clientWidth - PIN_WIDTH) + 'px';
+      } else if ((pinMain.offsetLeft - shift.x) > window.mapPins.clientWidth - PIN_WIDTH) {
+        pinMain.style.left = (window.mapPins.clientWidth - PIN_WIDTH) + 'px';
       }
 
       if ((pinMain.offsetTop - shift.y) < 130) {

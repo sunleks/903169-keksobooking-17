@@ -1,25 +1,37 @@
 'use strict';
 (function () {
-  window.pin = document.querySelector('#pin').content.querySelector('.map__pin');
+  window.createPin = function (indicators) {
+    var pin = document.querySelector('#pin').content.querySelector('.map__pin');
+    for (var i = 0; i < indicators.length; i++) {
+      var element = pin.cloneNode(true);
+      element.style.left = indicators[i].location.x + 'px';
+      element.style.top = indicators[i].location.y + 'px';
+      element.querySelector('img').src = indicators[i].author.avatar;
+      element.querySelector('img').alt = indicators[i].offer.title;
 
-  var createPin = function (indicators) {
-    var element = window.pin.cloneNode(true);
-    element.style.left = indicators.location.x + 'px';
-    element.style.top = indicators.location.y + 'px';
-    element.querySelector('img').src = indicators.author.avatar;
-    element.querySelector('img').alt = indicators.header.name;
-    return element;
-  };
-
-  window.fragment = document.createDocumentFragment();
-  var createPins = function () {
-    for (var i = 0; i < window.data.length; i++) {
-      window.fragment.appendChild(createPin(window.data[i]));
+      window.mapPins.appendChild(element);
     }
   };
-  createPins();
 
-  window.renderPins = function (node, elements) {
-    node.appendChild(elements);
+  window.onErrorHandler = function () {
+    var mainBlock = document.querySelector('main');
+    var error = document.querySelector('#error').content;
+    error.cloneNode(true);
+    mainBlock.appendChild(error.cloneNode(true));
+
+    var errorButton = document.querySelector('.error__button');
+
+    errorButton.addEventListener('click', function () {
+      mainBlock.removeChild(document.querySelector('.error'));
+      document.removeEventListener('keydown', onErrorEsc);
+    });
+
+    var onErrorEsc = function (evt) {
+      if (evt.keyCode === 27) {
+        mainBlock.removeChild(document.querySelector('.error'));
+      }
+      document.removeEventListener('keydown', onErrorEsc);
+    };
+    document.addEventListener('keydown', onErrorEsc);
   };
 })();
