@@ -1,18 +1,15 @@
 'use strict';
 (function () {
-  var createPin = function (indicators) {
+  window.createPin = function (indicators) {
     var pin = document.querySelector('#pin').content.querySelector('.map__pin');
-    var element = pin.cloneNode(true);
-    element.style.left = indicators.location.x + 'px';
-    element.style.top = indicators.location.y + 'px';
-    element.querySelector('img').src = indicators.author.avatar;
-    element.querySelector('img').alt = indicators.offer.title;
-    return element;
-  };
+    for (var i = 0; i < indicators.length; i++) {
+      var element = pin.cloneNode(true);
+      element.style.left = indicators[i].location.x + 'px';
+      element.style.top = indicators[i].location.y + 'px';
+      element.querySelector('img').src = indicators[i].author.avatar;
+      element.querySelector('img').alt = indicators[i].offer.title;
 
-  window.createPins = function (dataAjax) {
-    for (var i = 0; i < dataAjax.length; i++) {
-      window.mapPins.appendChild(createPin(dataAjax[i]));
+      window.mapPins.appendChild(element);
     }
   };
 
