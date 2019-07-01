@@ -8,14 +8,27 @@
       house: 'house',
       flat: 'flat', 
       palace: 'palace', 
-      bungalo: 'bungalo',
-      any: 'any'
+      bungalo: 'bungalo'
     };
 
-    housingType.addEventListener('change', function () {
-      console.log(housingType.value);
 
-      var newArr = indicators.filter(function (it) {
+    for (var i = 0; i < indicators.slice(0, 5).length; i++) {
+      var element = pin.cloneNode(true);
+      element.style.left = indicators[i].location.x + 'px';
+      element.style.top = indicators[i].location.y + 'px';
+      element.querySelector('img').src = indicators[i].author.avatar;
+      element.querySelector('img').alt = indicators[i].offer.title;
+      
+      window.mapPins.appendChild(element);
+    }
+    
+
+    housingType.addEventListener('change', function () {
+      removePins();
+      var newArr = indicators.slice().filter(function (it) {
+        if (housingType.value === 'any') {
+          return it.offer.type;
+        };
         return it.offer.type === valueToAnotherValue[housingType.value];
       }).slice(0,5);
 
@@ -31,6 +44,13 @@
     })
   };
 
+  var removePins = function () {
+    var mapPinsItems = document.querySelectorAll('.map__pins button');
+    mapPinsItems.forEach(function (it) {
+      it.remove();
+    });
+  };
+  
   window.onErrorHandler = function () {
     var mainBlock = document.querySelector('main');
     var error = document.querySelector('#error').content;
