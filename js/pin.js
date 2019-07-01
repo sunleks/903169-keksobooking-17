@@ -2,15 +2,33 @@
 (function () {
   window.createPin = function (indicators) {
     var pin = document.querySelector('#pin').content.querySelector('.map__pin');
-    for (var i = 0; i < indicators.length; i++) {
-      var element = pin.cloneNode(true);
-      element.style.left = indicators[i].location.x + 'px';
-      element.style.top = indicators[i].location.y + 'px';
-      element.querySelector('img').src = indicators[i].author.avatar;
-      element.querySelector('img').alt = indicators[i].offer.title;
+    var housingType = document.querySelector('#housing-type');
 
-      window.mapPins.appendChild(element);
-    }
+    var valueToAnotherValue = {
+      house: 'house',
+      flat: 'flat', 
+      palace: 'palace', 
+      bungalo: 'bungalo',
+      any: 'any'
+    };
+
+    housingType.addEventListener('change', function () {
+      console.log(housingType.value);
+
+      var newArr = indicators.filter(function (it) {
+        return it.offer.type === valueToAnotherValue[housingType.value];
+      }).slice(0,5);
+
+      for (var i = 0; i < newArr.length; i++) {
+        var element = pin.cloneNode(true);
+        element.style.left = newArr[i].location.x + 'px';
+        element.style.top = newArr[i].location.y + 'px';
+        element.querySelector('img').src = newArr[i].author.avatar;
+        element.querySelector('img').alt = newArr[i].offer.title;
+        
+        window.mapPins.appendChild(element);
+      }
+    })
   };
 
   window.onErrorHandler = function () {
