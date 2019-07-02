@@ -2,55 +2,29 @@
 (function () {
   window.createPin = function (indicators) {
     var pin = document.querySelector('#pin').content.querySelector('.map__pin');
-    var housingType = document.querySelector('#housing-type');
 
-    var valueToAnotherValue = {
-      house: 'house',
-      flat: 'flat', 
-      palace: 'palace', 
-      bungalo: 'bungalo'
-    };
-
-
-    for (var i = 0; i < indicators.slice(0, 5).length; i++) {
-      var element = pin.cloneNode(true);
-      element.style.left = indicators[i].location.x + 'px';
-      element.style.top = indicators[i].location.y + 'px';
-      element.querySelector('img').src = indicators[i].author.avatar;
-      element.querySelector('img').alt = indicators[i].offer.title;
-      
-      window.mapPins.appendChild(element);
-    }
-    
-
-    housingType.addEventListener('change', function () {
-      removePins();
-      var newArr = indicators.slice().filter(function (it) {
-        if (housingType.value === 'any') {
-          return it.offer.type;
-        };
-        return it.offer.type === valueToAnotherValue[housingType.value];
-      }).slice(0,5);
-
-      for (var i = 0; i < newArr.length; i++) {
+    var addPins = function (data) {
+      var newData = data.slice(0, 5);
+      for (var i = 0; i < newData.length; i++) {
         var element = pin.cloneNode(true);
-        element.style.left = newArr[i].location.x + 'px';
-        element.style.top = newArr[i].location.y + 'px';
-        element.querySelector('img').src = newArr[i].author.avatar;
-        element.querySelector('img').alt = newArr[i].offer.title;
-        
+        element.style.left = newData[i].location.x + 'px';
+        element.style.top = newData[i].location.y + 'px';
+        element.querySelector('img').src = newData[i].author.avatar;
+        element.querySelector('img').alt = newData[i].offer.title;
+
         window.mapPins.appendChild(element);
       }
-    })
-  };
+    };
+    addPins(indicators);
 
-  var removePins = function () {
-    var mapPinsItems = document.querySelectorAll('.map__pins button');
-    mapPinsItems.forEach(function (it) {
-      it.remove();
+    document.addEventListener('change', function () {
+      window.removePins();
+      var newArr = window.filterHousingType(indicators);
+
+      addPins(newArr);
     });
   };
-  
+
   window.onErrorHandler = function () {
     var mainBlock = document.querySelector('main');
     var error = document.querySelector('#error').content;
