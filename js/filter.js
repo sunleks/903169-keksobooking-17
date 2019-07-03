@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  window.housingType = document.querySelector('#housing-type');
+  var housingType = document.querySelector('#housing-type');
 
   var valueToAnotherValue = {
     house: 'house',
@@ -9,20 +9,32 @@
     bungalo: 'bungalo'
   };
 
-  window.removePins = function () {
+  var removePins = function () {
     var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     mapPinsItems.forEach(function (it) {
       it.remove();
     });
   };
 
-  window.filterHousingType = function (data) {
+  var filterHousingType = function (data) {
     var newArr = data.slice().filter(function (it) {
-      if (window.housingType.value === 'any') {
+      if (housingType.value === 'any') {
         return it.offer.type;
       }
-      return it.offer.type === valueToAnotherValue[window.housingType.value];
+      return it.offer.type === valueToAnotherValue[housingType.value];
     }).slice(0, 5);
     return newArr;
   };
+
+  window.filter = function (data) {
+    document.addEventListener('change', function () {
+      removePins();
+      var newArr = filterHousingType(data);
+
+      for (var i = 0; i < newArr.length; i++) {
+        window.mapPins.appendChild(window.createPin(newArr[i]));
+      }
+    });
+  };
+
 })();

@@ -9,7 +9,7 @@
   window.mapPins = document.querySelector('.map__pins');
 
   var renderPins = function () {
-    window.load(window.createPin, window.onErrorHandler);
+    window.load(window.createPins, window.onErrorHandler);
   };
   var activePage = function () {
     map.classList.remove('map--faded');

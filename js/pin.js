@@ -1,28 +1,22 @@
 'use strict';
 (function () {
-  window.createPin = function (indicators) {
-    var pin = document.querySelector('#pin').content.querySelector('.map__pin');
+  var pin = document.querySelector('#pin').content.querySelector('.map__pin');
 
-    var addPins = function (data) {
-      var newData = data.slice(0, 5);
-      for (var i = 0; i < newData.length; i++) {
-        var element = pin.cloneNode(true);
-        element.style.left = newData[i].location.x + 'px';
-        element.style.top = newData[i].location.y + 'px';
-        element.querySelector('img').src = newData[i].author.avatar;
-        element.querySelector('img').alt = newData[i].offer.title;
+  window.createPin = function (data) {
+    var element = pin.cloneNode(true);
+    element.style.left = data.location.x + 'px';
+    element.style.top = data.location.y + 'px';
+    element.querySelector('img').src = data.author.avatar;
+    element.querySelector('img').alt = data.offer.title;
 
-        window.mapPins.appendChild(element);
-      }
-    };
-    addPins(indicators);
+    return element;
+  };
 
-    document.addEventListener('change', function () {
-      window.removePins();
-      var newArr = window.filterHousingType(indicators);
-
-      addPins(newArr);
-    });
+  window.createPins = function (indicators) {
+    for (var i = 0; i < indicators.slice(0, 5).length; i++) {
+      window.mapPins.appendChild(window.createPin(indicators[i]));
+    }
+    window.filter(indicators);
   };
 
   window.onErrorHandler = function () {
