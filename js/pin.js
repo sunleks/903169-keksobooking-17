@@ -25,8 +25,8 @@
         mapCard.remove();
       }
       addInformToCard(data);
-    }
-    
+    };
+
     element.addEventListener('click', onPinClick);
     return element;
   };
@@ -53,21 +53,21 @@
     var closeCard = function () {
       cardAdd.remove();
 
-      btnClose.removeEventListener('click', closeCard)
+      btnClose.removeEventListener('click', closeCard);
       document.removeEventListener('keydown', onCardAddEsc);
     };
-  
+
     var onCardAddEsc = function (evt) {
       if (evt.keyCode === 27) {
         cardAdd.remove();
       }
-    }
+    };
 
     btnClose.addEventListener('click', closeCard);
     document.addEventListener('keydown', onCardAddEsc);
 
     return cardAdd;
-  }
+  };
 
   var createFeatureFragment = function (data) {
     var featureFragment = document.createDocumentFragment();
@@ -91,7 +91,7 @@
 
   window.renderPins = function (data) {
     for (var i = 0; i < data.slice(0, 5).length; i++) {
-      window.mapPins.appendChild(window.createPin(data[i]));  
+      window.mapPins.appendChild(window.createPin(data[i]));
     }
   };
 

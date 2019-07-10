@@ -63,7 +63,7 @@
   var capacity = document.querySelector('#capacity');
 
   roomNumber.addEventListener('change', function () {
-    capacityOption.forEach(function(it) {
+    capacityOption.forEach(function (it) {
       it.disabled = true;
     });
 
@@ -71,7 +71,7 @@
       capacity.querySelector('option' + '[value="' + it + '"]').disabled = false;
       capacity.value = it;
     });
-  })
+  });
 
   var countRoom = {
     1: [1],

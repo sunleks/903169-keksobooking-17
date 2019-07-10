@@ -35,13 +35,14 @@
       } else
       if (housingPrice.value === 'middle') {
         return it.offer.price >= 10000 && it.offer.price <= 50000;
-      } else 
+      } else
       if (housingPrice.value === 'low') {
-        return it.offer.price <= 10000; 
-      } else 
+        return it.offer.price <= 10000;
+      } else
       if (housingPrice.value === 'high') {
-        return it.offer.price >= 50000; 
+        return it.offer.price >= 50000;
       }
+      return it;
     })
     .filter(function (it) {
       if (housingRoom.value === 'any') {
@@ -52,10 +53,11 @@
       } else
       if (housingRoom.value === '2') {
         return it.offer.rooms === 2;
-      } else 
+      } else
       if (housingRoom.value === '3') {
         return it.offer.rooms === 3;
       }
+      return it;
     })
     .filter(function (it) {
       if (housingGuests.value === 'any') {
@@ -66,24 +68,25 @@
       } else
       if (housingGuests.value === '2') {
         return it.offer.guests === 2;
-      } else 
+      } else
       if (housingGuests.value === '0') {
         return it.offer.guests === 0;
       }
+      return it;
     })
     .filter(function (it) {
       var inputChecked = housingFeatures.querySelectorAll('input:checked');
       return Array.from(inputChecked).every(function (item) {
         return it.offer.features.includes(item.value);
-      })
+      });
     });
     return newArr.slice(0, 5);
   };
 
   window.filter = function () {
     removePins();
-    window.renderPins(filterCards(window.dataCard))
+    window.renderPins(filterCards(window.dataCard));
   };
 
-  mapFilters.addEventListener('change', filter);
+  mapFilters.addEventListener('change', window.filter);
 })();

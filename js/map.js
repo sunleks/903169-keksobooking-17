@@ -10,7 +10,6 @@
 
   var activePage = function (data) {
     window.dataCard = data;
-    console.log(window.dataCard);
     window.renderPins(data);
   };
 
@@ -20,12 +19,12 @@
     window.enabledElement(window.forms.formFieldsets);
     window.enabledElement(window.forms.formMapFilters);
     pinMain.removeEventListener('mousedown', initializationApp);
-  }
+  };
 
   var initializationApp = function () {
     activeScreen();
     window.load(activePage, window.onErrorHandler);
-  }
+  };
 
   pinMain.addEventListener('mousedown', initializationApp);
 
