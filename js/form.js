@@ -2,7 +2,8 @@
 (function () {
   window.forms = {
     form: document.querySelector('.ad-form'),
-    formFieldsets: document.querySelector('.ad-form').querySelectorAll('fieldset')
+    formFieldsets: document.querySelector('.ad-form').querySelectorAll('fieldset'),
+    formMapFilters: document.querySelector('.map__filters')
   };
 
   var disabledElement = function (collection) {
@@ -11,6 +12,7 @@
     }
   };
   disabledElement(window.forms.formFieldsets);
+  disabledElement(window.forms.formMapFilters);
 
   window.enabledElement = function (collection) {
     for (var i = 0; i < collection.length; i++) {
@@ -55,4 +57,26 @@
   timeout.addEventListener('change', function () {
     timein.value = timeout.value;
   });
+
+  var roomNumber = document.querySelector('#room_number');
+  var capacityOption = document.querySelectorAll('#capacity option');
+  var capacity = document.querySelector('#capacity');
+
+  roomNumber.addEventListener('change', function () {
+    capacityOption.forEach(function(it) {
+      it.disabled = true;
+    });
+
+    countRoom[roomNumber.value].forEach(function (it) {
+      capacity.querySelector('option' + '[value="' + it + '"]').disabled = false;
+      capacity.value = it;
+    });
+  })
+
+  var countRoom = {
+    1: [1],
+    2: [1, 2],
+    3: [1, 2, 3],
+    100: [0]
+  };
 })();

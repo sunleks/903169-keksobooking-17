@@ -8,18 +8,26 @@
   var map = document.querySelector('.map');
   window.mapPins = document.querySelector('.map__pins');
 
-  var renderPins = function () {
-    window.load(window.createPins, window.onErrorHandler);
+  var activePage = function (data) {
+    window.dataCard = data;
+    console.log(window.dataCard);
+    window.renderPins(data);
   };
-  var activePage = function () {
+
+  var activeScreen = function () {
     map.classList.remove('map--faded');
     window.forms.form.classList.remove('ad-form--disabled');
     window.enabledElement(window.forms.formFieldsets);
-    renderPins();
-    pinMain.removeEventListener('mousedown', activePage);
-  };
+    window.enabledElement(window.forms.formMapFilters);
+    pinMain.removeEventListener('mousedown', initializationApp);
+  }
 
-  pinMain.addEventListener('mousedown', activePage);
+  var initializationApp = function () {
+    activeScreen();
+    window.load(activePage, window.onErrorHandler);
+  }
+
+  pinMain.addEventListener('mousedown', initializationApp);
 
   pinMain.addEventListener('mousedown', function (evt) {
 
