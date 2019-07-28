@@ -10,6 +10,8 @@
   var formFieldsets = document.querySelector('.ad-form').querySelectorAll('fieldset');
   var formMapFilters = document.querySelector('.map__filters');
 
+  var ESC = 27;
+
   var main = document.querySelector('main');
   var selectType = document.querySelector('#type');
   var selectPrice = document.querySelector('#price');
@@ -104,7 +106,7 @@
 
     var onSuccessEsc = function (evt) {
       evt.preventDefault();
-      if (evt.keyCode === 27) {
+      if (evt.keyCode === ESC) {
         blockSuccess.remove();
       }
       document.removeEventListener('keydown', onSuccessEsc);

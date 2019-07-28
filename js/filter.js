@@ -8,6 +8,11 @@
 
   var housingFeatures = document.querySelectorAll('#housing-features input');
 
+  var PRICEVALUE = {
+    low: 10000,
+    high: 50000
+  };
+
   var removePins = function () {
     var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     mapPinsItems.forEach(function (it) {
@@ -22,11 +27,11 @@
   var getHousingPrice = function (element) {
     switch (housingPrice.value) {
       case 'middle':
-        return element.offer.price >= 10000 && element.offer.price <= 50000;
+        return element.offer.price >= PRICEVALUE.low && element.offer.price <= PRICEVALUE.high;
       case 'low':
-        return element.offer.price >= 10000;
+        return element.offer.price >= PRICEVALUE.low;
       case 'high':
-        return element.offer.price >= 50000;
+        return element.offer.price >= PRICEVALUE.high;
       default:
         return true;
     }
@@ -66,11 +71,11 @@
     window.pin.renderPins(getAllFilters(window.dataCard));
   };
 
-  var onDebounceHandler = window.debounce(function () {
+  var debounceHandler = window.debounce(function () {
     filter();
   });
 
-  mapFilters.addEventListener('change', onDebounceHandler);
+  mapFilters.addEventListener('change', debounceHandler);
 
   window.filter = {
     filter: filter

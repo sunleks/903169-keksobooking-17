@@ -9,6 +9,16 @@
   var map = document.querySelector('.map');
   var mapPins = document.querySelector('.map__pins');
 
+  var STARTCOORDS_VALUE = {
+    x: 600,
+    y: 375
+  };
+
+  var STARTCOORDS_PIN = {
+    x: 570,
+    y: 375
+  };
+
   address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
 
   var activetePage = function (data) {
@@ -33,7 +43,7 @@
     }
   };
 
-  address.value = 600 + ', ' + 375;
+  address.value = STARTCOORDS_VALUE.x + ', ' + STARTCOORDS_VALUE.y;
 
   pinMain.addEventListener('mousedown', function (evt) {
 
@@ -99,8 +109,8 @@
     window.filter.filter();
     checkCard();
     checkPins();
-    pinMain.style.top = 375 + 'px';
-    pinMain.style.left = 570 + 'px';
+    pinMain.style.top = STARTCOORDS_PIN.y + 'px';
+    pinMain.style.left = STARTCOORDS_PIN.x + 'px';
 
     map.classList.add('map--faded');
     Array.from(document.querySelector('.map__filters').children).filter(function (it) {
@@ -124,7 +134,7 @@
   };
 
   var setAddressCoords = function () {
-    document.querySelector('#address').value = 600 + ', ' + 375;
+    document.querySelector('#address').value = STARTCOORDS_VALUE.x + ', ' + STARTCOORDS_VALUE.y;
   };
 
   window.map = {

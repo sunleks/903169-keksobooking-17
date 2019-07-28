@@ -2,6 +2,7 @@
 (function () {
   var pin = document.querySelector('#pin').content.querySelector('.map__pin');
   var card = document.querySelector('#card').content;
+  var ESC = 27;
   var popupPhoto = document.querySelector('template').content.querySelector('.popup__photo');
   var mapFiltersContainer = document.querySelector('.map__filters-container');
   var filterss = document.querySelector('.map__filters');
@@ -67,7 +68,7 @@
 
     var onCardAddEsc = function (evt) {
       evt.preventDefault();
-      if (evt.keyCode === 27) {
+      if (evt.keyCode === ESC) {
         cardAdd.remove();
       }
       document.removeEventListener('keydown', onCardAddEsc);
@@ -119,7 +120,7 @@
     });
 
     var onErrorEsc = function (evt) {
-      if (evt.keyCode === 27) {
+      if (evt.keyCode === ESC) {
         mainBlock.removeChild(document.querySelector('.error'));
       }
       document.removeEventListener('keydown', onErrorEsc);

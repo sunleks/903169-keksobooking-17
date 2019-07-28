@@ -2,6 +2,8 @@
 (function () {
   var URLGET = 'https://js.dump.academy/keksobooking/data';
   var URLPOST = 'https://js.dump.academy/keksobooking';
+  var SERVERSTATUS = 200;
+  var TIMEOUT = 5000;
 
   var MessageText = {
     ERROR_LOAD: 'Произошла неизвестная ошибка. Пожалуйста, обновите страницу.',
@@ -14,7 +16,7 @@
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === SERVERSTATUS) {
         onSucces(xhr.response);
       } else {
         onError(MessageText.ERROR_LOAD);
@@ -28,7 +30,7 @@
       onError(MessageText.ERROR_TIMEOUT);
     });
 
-    xhr.timeout = 5000;
+    xhr.timeout = TIMEOUT;
 
     xhr.open('GET', URL);
     xhr.send();
@@ -40,7 +42,7 @@
 
     xhr.addEventListener('load', function () {
 
-      if (xhr.status === 200) {
+      if (xhr.status === SERVERSTATUS) {
         onSuccess(xhr.response);
       } else {
         onError(MessageText.ERROR_LOAD);
