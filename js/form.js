@@ -1,29 +1,38 @@
 'use strict';
 (function () {
-  window.forms = {
-    form: document.querySelector('.ad-form'),
-    formFieldsets: document.querySelector('.ad-form').querySelectorAll('fieldset'),
-    formMapFilters: document.querySelector('.map__filters')
+  var CountRoom = {
+    1: [1],
+    2: [1, 2],
+    3: [1, 2, 3],
+    100: [0]
   };
+  var form = document.querySelector('.ad-form');
+  var formFieldsets = document.querySelector('.ad-form').querySelectorAll('fieldset');
+  var formMapFilters = document.querySelector('.map__filters');
 
   var main = document.querySelector('main');
+  var selectType = document.querySelector('#type');
+  var selectPrice = document.querySelector('#price');
+  var timeIn = document.querySelector('#timein');
+  var timeOut = document.querySelector('#timeout');
+  var roomNumber = document.querySelector('#room_number');
+  var capacityOption = document.querySelectorAll('#capacity option');
+  var capacity = document.querySelector('#capacity');
 
   var disabledElement = function (collection) {
     for (var i = 0; i <= collection.length - 1; i++) {
       collection[i].setAttribute('disabled', true);
     }
   };
-  disabledElement(window.forms.formFieldsets);
-  disabledElement(window.forms.formMapFilters);
+  disabledElement(formFieldsets);
+  disabledElement(formMapFilters);
 
-  window.enabledElement = function (collection) {
+  var enabledElement = function (collection) {
     for (var i = 0; i < collection.length; i++) {
       collection[i].removeAttribute('disabled', true);
     }
   };
 
-  var selectType = document.querySelector('#type');
-  var selectPrice = document.querySelector('#price');
   var getHousePrice = function () {
     switch (selectType.value) {
       case 'bungalo':
@@ -49,50 +58,34 @@
     selectPrice.setAttribute('placeholder', minPrice);
   });
 
-  var timein = document.querySelector('#timein');
-  var timeout = document.querySelector('#timeout');
-
-  timein.addEventListener('change', function () {
-    timeout.value = timein.value;
+  timeIn.addEventListener('change', function () {
+    timeOut.value = timeIn.value;
   });
 
-  timeout.addEventListener('change', function () {
-    timein.value = timeout.value;
+  timeOut.addEventListener('change', function () {
+    timeIn.value = timeOut.value;
   });
-
-  var roomNumber = document.querySelector('#room_number');
-  var capacityOption = document.querySelectorAll('#capacity option');
-  var capacity = document.querySelector('#capacity');
 
   roomNumber.addEventListener('change', function () {
     capacityOption.forEach(function (it) {
       it.disabled = true;
     });
 
-    countRoom[roomNumber.value].forEach(function (it) {
+    CountRoom[roomNumber.value].forEach(function (it) {
       capacity.querySelector('option' + '[value="' + it + '"]').disabled = false;
       capacity.value = it;
     });
   });
 
-  var countRoom = {
-    1: [1],
-    2: [1, 2],
-    3: [1, 2, 3],
-    100: [0]
-  };
-
-  var buttonSubmit = document.querySelector('.ad-form');
-
-  var send = function (evt) {
+  var onSendHandler = function (evt) {
     evt.preventDefault();
     if (document.querySelector('#address')) {
       document.querySelector('#address').disabled = false;
     }
-    window.upload(new FormData(buttonSubmit), function () {
+    window.data.upload(new FormData(form), function () {
       addBlockSuccess();
-      window.deactivateForm();
-    }, window.onErrorHandler, window.URLPOST);
+      window.map.deactivateForm();
+    }, window.pin.onErrorHandler, window.data.URLPOST);
   };
 
   var addBlockSuccess = function () {
@@ -104,9 +97,9 @@
   var closeBlockSuccess = function () {
     var blockSuccess = document.querySelector('.success');
 
-    var does = function () {
+    var onCloseSuccess = function () {
       blockSuccess.remove();
-      blockSuccess.removeEventListener('click', does);
+      blockSuccess.removeEventListener('click', onCloseSuccess);
     };
 
     var onSuccessEsc = function (evt) {
@@ -117,15 +110,22 @@
       document.removeEventListener('keydown', onSuccessEsc);
     };
 
-    blockSuccess.addEventListener('click', does);
+    blockSuccess.addEventListener('click', onCloseSuccess);
     document.addEventListener('keydown', onSuccessEsc);
   };
 
   var buttonReset = document.querySelector('.ad-form__reset');
   buttonReset.addEventListener('click', function (evt) {
     evt.preventDefault();
-    window.deactivateForm();
+    window.map.deactivateForm();
   });
 
-  buttonSubmit.addEventListener('submit', send);
+  form.addEventListener('submit', onSendHandler);
+
+  window.forms = {
+    form: form,
+    formFieldsets: formFieldsets,
+    formMapFilters: formMapFilters,
+    enabledElement: enabledElement
+  };
 })();

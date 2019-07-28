@@ -4,6 +4,7 @@
   var card = document.querySelector('#card').content;
   var popupPhoto = document.querySelector('template').content.querySelector('.popup__photo');
   var mapFiltersContainer = document.querySelector('.map__filters-container');
+  var filterss = document.querySelector('.map__filters');
 
   var MapType = {
     PALACE: 'Дворец',
@@ -12,7 +13,7 @@
     BUNGALO: 'Бунгало'
   };
 
-  window.createPin = function (data) {
+  var createPin = function (data) {
     var element = pin.cloneNode(true);
     element.style.left = data.location.x + 'px';
     element.style.top = data.location.y + 'px';
@@ -30,8 +31,6 @@
     element.addEventListener('click', onPinClick);
     return element;
   };
-
-  var filterss = document.querySelector('.map__filters');
 
   filterss.addEventListener('change', function () {
     var mapCard = document.querySelector('.map__card');
@@ -100,13 +99,13 @@
     return photosFragment;
   };
 
-  window.renderPins = function (data) {
+  var renderPins = function (data) {
     for (var i = 0; i < data.slice(0, 5).length; i++) {
-      window.mapPins.appendChild(window.createPin(data[i]));
+      window.map.mapPins.appendChild(createPin(data[i]));
     }
   };
 
-  window.onErrorHandler = function () {
+  var onErrorHandler = function () {
     var mainBlock = document.querySelector('main');
     var error = document.querySelector('#error').content;
     error.cloneNode(true);
@@ -126,5 +125,10 @@
       document.removeEventListener('keydown', onErrorEsc);
     };
     document.addEventListener('keydown', onErrorEsc);
+  };
+
+  window.pin = {
+    renderPins: renderPins,
+    onErrorHandler: onErrorHandler
   };
 })();

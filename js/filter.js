@@ -8,7 +8,7 @@
 
   var housingFeatures = document.querySelectorAll('#housing-features input');
 
-  window.removePins = function () {
+  var removePins = function () {
     var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     mapPinsItems.forEach(function (it) {
       it.remove();
@@ -61,14 +61,18 @@
     });
   };
 
-  window.filter = function () {
-    window.removePins();
-    window.renderPins(getAllFilters(window.dataCard));
+  var filter = function () {
+    removePins();
+    window.pin.renderPins(getAllFilters(window.dataCard));
   };
 
-  var debounce = window.debounce(function () {
-    window.filter();
+  var onDebounceHandler = window.debounce(function () {
+    filter();
   });
 
-  mapFilters.addEventListener('change', debounce);
+  mapFilters.addEventListener('change', onDebounceHandler);
+
+  window.filter = {
+    filter: filter
+  };
 })();

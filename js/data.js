@@ -1,7 +1,7 @@
 'use strict';
 (function () {
-  window.URLGET = 'https://js.dump.academy/keksobooking/data';
-  window.URLPOST = 'https://js.dump.academy/keksobooking';
+  var URLGET = 'https://js.dump.academy/keksobooking/data';
+  var URLPOST = 'https://js.dump.academy/keksobooking';
 
   var MessageText = {
     ERROR_LOAD: 'Произошла неизвестная ошибка. Пожалуйста, обновите страницу.',
@@ -9,7 +9,7 @@
     ERROR_TIMEOUT: 'Сервер долго не отвечает. Пожалуйста, обновите страницу.'
   };
 
-  window.load = function (onSucces, onError, URL) {
+  var load = function (onSucces, onError, URL) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -34,7 +34,7 @@
     xhr.send();
   };
 
-  window.upload = function (data, onSuccess, onError, URL) {
+  var upload = function (data, onSuccess, onError, URL) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -56,5 +56,12 @@
 
     xhr.open('POST', URL);
     xhr.send(data);
+  };
+
+  window.data = {
+    URLGET: URLGET,
+    URLPOST: URLPOST,
+    load: load,
+    upload: upload
   };
 })();
