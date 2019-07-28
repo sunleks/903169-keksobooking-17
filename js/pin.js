@@ -31,6 +31,14 @@
     return element;
   };
 
+  var filterss = document.querySelector('.map__filters');
+
+  filterss.addEventListener('change', function () {
+    var mapCard = document.querySelector('.map__card');
+    if (mapCard) {
+      mapCard.remove();
+    }
+  });
   var addInformToCard = function (data) {
     var cardAdd = card.querySelector('.map__card').cloneNode(true);
 
@@ -50,7 +58,8 @@
 
     var btnClose = cardAdd.querySelector('.popup__close');
 
-    var closeCard = function () {
+    var closeCard = function (evt) {
+      evt.preventDefault();
       cardAdd.remove();
 
       btnClose.removeEventListener('click', closeCard);
@@ -58,9 +67,11 @@
     };
 
     var onCardAddEsc = function (evt) {
+      evt.preventDefault();
       if (evt.keyCode === 27) {
         cardAdd.remove();
       }
+      document.removeEventListener('keydown', onCardAddEsc);
     };
 
     btnClose.addEventListener('click', closeCard);

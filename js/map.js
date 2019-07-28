@@ -2,6 +2,7 @@
 (function () {
   var pinMain = document.querySelector('.map__pin--main');
   var address = document.querySelector('#address');
+  var active = false;
 
   address.value = parseInt(pinMain.style.left, 10) + ', ' + parseInt(pinMain.style.top, 10);
 
@@ -11,24 +12,32 @@
   var activePage = function (data) {
     window.dataCard = data;
     window.renderPins(data);
+    window.enabledElement(window.forms.formMapFilters);
   };
 
   var activeScreen = function () {
     map.classList.remove('map--faded');
     window.forms.form.classList.remove('ad-form--disabled');
     window.enabledElement(window.forms.formFieldsets);
-    window.enabledElement(window.forms.formMapFilters);
     pinMain.removeEventListener('mousedown', initializationApp);
   };
 
   var initializationApp = function () {
-    activeScreen();
-    window.load(activePage, window.onErrorHandler);
+    if (!active) {
+      activeScreen();
+      window.load(activePage, window.onErrorHandler, window.URLGET);
+
+      active = true;
+    }
   };
 
-  pinMain.addEventListener('mousedown', initializationApp);
+  // pinMain.addEventListener('mousedown', initializationApp);
+
+  address.value = 600 + ', ' + 375;
 
   pinMain.addEventListener('mousedown', function (evt) {
+
+    initializationApp();
 
     var PIN_WIDTH = 65;
     var PIN_HEIGHT = 65;
@@ -79,4 +88,45 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
+  window.deactivateForm = function () {
+    window.forms.form.reset();
+    window.forms.formFieldsets.forEach(function (it) {
+      it.disabled = true;
+    });
+
+    setAddressCoords();
+    window.forms.form.classList.add('ad-form--disabled');
+
+    window.forms.formMapFilters.reset();
+    window.filter();
+    checkCard();
+    checkPins();
+    pinMain.style.top = 375 + 'px';
+    pinMain.style.left = 570 + 'px';
+
+    document.querySelector('.map').classList.add('map--faded');
+    Array.from(document.querySelector('.map__filters').children).filter(function (it) {
+      it.disabled = true;
+    });
+    active = false;
+  };
+
+  var checkCard = function () {
+    if (document.querySelector('.map__card')) {
+      document.querySelector('.map__card').remove();
+    }
+  };
+
+  var checkPins = function () {
+    if (document.querySelectorAll('.map__pin:not(.map__pin--main)')) {
+      Array.from(document.querySelectorAll('.map__pin:not(.map__pin--main)')).filter(function (it) {
+        it.remove();
+      });
+    }
+  };
+
+  var setAddressCoords = function () {
+    document.querySelector('#address').value = 600 + ', ' + 375;
+  };
 })();
