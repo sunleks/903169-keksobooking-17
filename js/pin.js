@@ -82,9 +82,9 @@
 
   var createFeatureFragment = function (data) {
     var featureFragment = document.createDocumentFragment();
-    data.offer.features.forEach(function (it) {
+    data.offer.features.forEach(function (item) {
       var featureItem = document.createElement('li');
-      featureItem.className = 'popup__feature popup__feature--' + it;
+      featureItem.className = 'popup__feature popup__feature--' + item;
       featureFragment.appendChild(featureItem);
     });
     return featureFragment;
@@ -92,36 +92,42 @@
 
   var createPhotosFragment = function (data) {
     var photosFragment = document.createDocumentFragment();
-    data.offer.photos.forEach(function (it) {
+    data.offer.photos.forEach(function (item) {
       var popupPhotoItem = popupPhoto.cloneNode(true);
-      popupPhotoItem.src = it;
+      popupPhotoItem.src = item;
       photosFragment.appendChild(popupPhotoItem);
     });
     return photosFragment;
   };
 
   var renderPins = function (data) {
-    for (var i = 0; i < data.slice(0, 5).length; i++) {
-      window.map.mapPins.appendChild(createPin(data[i]));
+    for (var i = 0; i < data.length; i++) {
+      window.map.elements.appendChild(createPin(data[i]));
     }
   };
 
-  var onErrorHandler = function () {
+  var onError = function () {
+    document.querySelector('#address').disabled = true;
     var mainBlock = document.querySelector('main');
     var error = document.querySelector('#error').content;
     error.cloneNode(true);
     mainBlock.appendChild(error.cloneNode(true));
 
     var errorButton = document.querySelector('.error__button');
+    var blockError = document.querySelector('.error');
+    blockError.addEventListener('click', function () {
+      blockError.remove();
+      document.removeEventListener('keydown', onErrorEsc);
+    });
 
     errorButton.addEventListener('click', function () {
-      mainBlock.removeChild(document.querySelector('.error'));
+      mainBlock.removeChild(blockError);
       document.removeEventListener('keydown', onErrorEsc);
     });
 
     var onErrorEsc = function (evt) {
       if (evt.keyCode === ESC) {
-        mainBlock.removeChild(document.querySelector('.error'));
+        mainBlock.removeChild(blockError);
       }
       document.removeEventListener('keydown', onErrorEsc);
     };
@@ -129,7 +135,7 @@
   };
 
   window.pin = {
-    renderPins: renderPins,
-    onErrorHandler: onErrorHandler
+    render: renderPins,
+    error: onError
   };
 })();

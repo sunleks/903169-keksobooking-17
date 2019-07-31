@@ -7,16 +7,22 @@
   var housingGuests = document.querySelector('#housing-guests');
 
   var housingFeatures = document.querySelectorAll('#housing-features input');
+  var flag = -1;
 
-  var PRICEVALUE = {
-    low: 10000,
-    high: 50000
+  var PriceValue = {
+    LOW: 10000,
+    HIGH: 50000
+  };
+
+  var PinsNumber = {
+    MIN: 0,
+    MAX: 5
   };
 
   var removePins = function () {
     var mapPinsItems = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    mapPinsItems.forEach(function (it) {
-      it.remove();
+    mapPinsItems.forEach(function (item) {
+      item.remove();
     });
   };
 
@@ -27,11 +33,11 @@
   var getHousingPrice = function (element) {
     switch (housingPrice.value) {
       case 'middle':
-        return element.offer.price >= PRICEVALUE.low && element.offer.price <= PRICEVALUE.high;
+        return element.offer.price >= PriceValue.LOW && element.offer.price <= PriceValue.HIGH;
       case 'low':
-        return element.offer.price >= PRICEVALUE.low;
+        return element.offer.price >= PriceValue.LOW;
       case 'high':
-        return element.offer.price >= PRICEVALUE.high;
+        return element.offer.price >= PriceValue.HIGH;
       default:
         return true;
     }
@@ -52,7 +58,7 @@
       return el.value;
     });
     return checkedFeaturesOptions.every(function (val) {
-      return element.offer.features.indexOf(val) !== -1;
+      return element.offer.features.indexOf(val) !== flag;
     });
   };
 
@@ -66,18 +72,19 @@
     });
   };
 
-  var filter = function () {
+  var setFilter = function () {
     removePins();
-    window.pin.renderPins(getAllFilters(window.dataCard));
+    window.pin.render(getAllFilters(window.dataCard.slice(PinsNumber.MIN, PinsNumber.MAX)));
   };
 
-  var debounceHandler = window.debounce(function () {
-    filter();
+  var onDebounce = window.debounce(function () {
+    setFilter();
   });
 
-  mapFilters.addEventListener('change', debounceHandler);
+  mapFilters.addEventListener('change', onDebounce);
 
   window.filter = {
-    filter: filter
+    setFilter: setFilter,
+    PinsNumber: PinsNumber
   };
 })();
